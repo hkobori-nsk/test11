@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>NEXUS GAMES | Game Creation Company</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    background: #050505;
+
+    color: #ffffff;
+
+    font-family:
+        "Arial",
+        "Noto Sans JP",
+        sans-serif;
+
+    overflow-x: hidden;
+
+}
+
+
+/* =====================================================
+   COMMON
+===================================================== */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+
+    width: min(1200px, 90%);
+
+    margin: auto;
+
+}
+
+.reveal {
+
+    opacity: 0;
+
+    transform: translateY(50px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+
+}
+
+.reveal.active {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+#loading {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: #050505;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 9999;
+
+    transition: opacity 1s ease;
+
+}
+
+.loading-logo {
+
+    font-size: 42px;
+
+    font-weight: 900;
+
+    letter-spacing: 8px;
+
+    color: #ff5a00;
+
+    animation: loadingPulse 1.5s infinite;
+
+}
+
+@keyframes loadingPulse {
+
+    0% {
+        opacity: .3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: .3;
+    }
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+
+    z-index: 1000;
+
+    background:
+        rgba(5,5,5,.75);
+
+    backdrop-filter:
+        blur(15px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+}
+
+.header-inner {
+
+    width: min(1400px, 92%);
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+/* logo */
+
+.logo {
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    color: #ffffff;
+
+}
+
+.logo span {
+
+    color: #ff5a00;
+
+}
+
+
+/* navigation */
+
+nav {
+
+    display: flex;
+
+    gap: 35px;
+
+}
+
+nav a {
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    position: relative;
+
+    transition: .3s;
+
+}
+
+nav a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -8px;
+
+    width: 0;
+
+    height: 2px;
+
+    background: #ff5a00;
+
+    transition: .3s;
+
+}
+
+nav a:hover {
+
+    color: #ff5a00;
+
+}
+
+nav a:hover::after {
+
+    width: 100%;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    min-height: 100vh;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+}
+
+
+/* grid */
+
+.hero-grid {
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.03) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.03) 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent
+        );
+
+}
+
+
+/* orange glow */
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+
+    height: 600px;
+
+    right: -200px;
+
+    top: 100px;
+
+    border-radius: 50%;
+
+    background: #ff5a00;
+
+    filter: blur(180px);
+
+    opacity: .2;
+
+}
+
+
+/* orb */
+
+.hero-orb {
+
+    position: absolute;
+
+    width: 500px;
+
+    height: 500px;
+
+    right: 8%;
+
+    top: 25%;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255,90,0,.5);
+
+    box-shadow:
+
+        0 0 80px
+        rgba(255,90,0,.2),
+
+        inset 0 0 80px
+        rgba(255,90,0,.1);
+
+    animation:
+        orbRotate 15s linear infinite;
+
+}
+
+@keyframes orbRotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* hero content */
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    width: min(1200px, 90%);
+
+    margin: auto;
+
+}
+
+.hero-label {
+
+    display: inline-block;
+
+    color: #ff5a00;
+
+    font-size: 13px;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 25px;
+
+}
+
+.hero h1 {
+
+    font-size:
+        clamp(55px, 8vw, 120px);
+
+    line-height: .95;
+
+    font-weight: 900;
+
+    letter-spacing: -5px;
+
+    max-width: 900px;
+
+}
+
+.hero h1 span {
+
+    color: #ff5a00;
+
+}
+
+.hero-description {
+
+    margin-top: 35px;
+
+    max-width: 600px;
+
+    line-height: 2;
+
+    color: #aaaaaa;
+
+    font-size: 15px;
+
+}
+
+
+/* CTA */
+
+.hero-button {
+
+    display: inline-flex;
+
+    margin-top: 45px;
+
+    padding:
+        18px 35px;
+
+    border:
+        1px solid #ff5a00;
+
+    color: #ffffff;
+
+    letter-spacing: 2px;
+
+    transition: .4s;
+
+}
+
+.hero-button:hover {
+
+    background: #ff5a00;
+
+    box-shadow:
+        0 0 40px
+        rgba(255,90,0,.5);
+
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+section {
+
+    padding:
+        150px 0;
+
+}
+
+.section-number {
+
+    color: #ff5a00;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 25px;
+
+}
+
+.section-title {
+
+    font-size:
+        clamp(45px, 6vw, 85px);
+
+    line-height: 1;
+
+    font-weight: 900;
+
+}
+
+.section-title span {
+
+    color: #ff5a00;
+
+}
+
+
+/* =====================================================
+   GAMES
+===================================================== */
+
+.games {
+
+    background: #080808;
+
+}
+
+.games-intro {
+
+    max-width: 650px;
+
+    color: #999999;
+
+    line-height: 2;
+
+    margin-top: 35px;
+
+}
+
+
+/* game grid */
+
+.game-grid {
+
+    width: min(1400px, 92%);
+
+    margin:
+        80px auto 0;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+
+}
+
+
+/* game card */
+
+.game-card {
+
+    height: 600px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #111;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    transform-style:
+        preserve-3d;
+
+    transition:
+        border-color .4s,
+        box-shadow .4s;
+
+}
+
+.game-card:hover {
+
+    border-color:
+        rgba(255,90,0,.7);
+
+    box-shadow:
+        0 20px 80px
+        rgba(255,90,0,.15);
+
+}
+
+
+/* =====================================================
+   GAME IMAGE
+===================================================== */
+
+.game-image {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform .8s ease,
+        filter .8s ease;
+
+}
+
+
+/* hover */
+
+.game-card:hover .game-image {
+
+    transform:
+        scale(1.08);
+
+    filter:
+        brightness(1.1)
+        saturate(1.25);
+
+}
+
+
+/* image overlay */
+
+.game-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.05) 15%,
+            rgba(0,0,0,.25) 40%,
+            rgba(0,0,0,.95) 100%
+        );
+
+}
+
+
+/* orange glow */
+
+.game-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+
+    height: 250px;
+
+    right: -120px;
+
+    top: -120px;
+
+    border-radius: 50%;
+
+    background:
+        #ff5a00;
+
+    filter:
+        blur(100px);
+
+    opacity: .15;
+
+    z-index: 3;
+
+    transition: .5s;
+
+}
+
+.game-card:hover::after {
+
+    opacity: .4;
+
+}
+
+
+/* game information */
+
+.game-info {
+
+    position: absolute;
+
+    left: 35px;
+
+    right: 35px;
+
+    bottom: 35px;
+
+    z-index: 4;
+
+}
+
+.game-category {
+
+    color: #ff5a00;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 12px;
+
+}
+
+.game-info h3 {
+
+    font-size: 38px;
+
+    margin-bottom: 15px;
+
+    letter-spacing: 2px;
+
+}
+
+.game-info p {
+
+    color: #dddddd;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+}
+
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about {
+
+    background: #050505;
+
+}
+
+.about-grid {
+
+    margin-top: 80px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 80px;
+
+}
+
+.about-text {
+
+    color: #999999;
+
+    line-height: 2.2;
+
+    font-size: 16px;
+
+}
+
+.values {
+
+    display: grid;
+
+    gap: 20px;
+
+}
+
+.value {
+
+    padding: 30px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    transition: .4s;
+
+}
+
+.value:hover {
+
+    border-color: #ff5a00;
+
+    transform:
+        translateX(10px);
+
+}
+
+.value-number {
+
+    color: #ff5a00;
+
+    font-size: 12px;
+
+}
+
+.value h3 {
+
+    margin-top: 10px;
+
+    font-size: 25px;
+
+}
+
+
+/* =====================================================
+   NEWS
+===================================================== */
+
+.news {
+
+    background: #080808;
+
+}
+
+.news-list {
+
+    width: min(1000px, 90%);
+
+    margin:
+        70px auto 0;
+
+}
+
+.news-item {
+
+    display: grid;
+
+    grid-template-columns:
+        120px 120px 1fr;
+
+    gap: 20px;
+
+    padding: 25px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.1);
+
+}
+
+.news-date {
+
+    color: #888;
+
+}
+
+.news-category {
+
+    color: #ff5a00;
+
+    font-size: 12px;
+
+}
+
+.news-title {
+
+    font-size: 15px;
+
+}
+
+
+/* =====================================================
+   RECRUIT
+===================================================== */
+
+.recruit {
+
+    min-height: 600px;
+
+    display: flex;
+
+    align-items: center;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(255,90,0,.12),
+            transparent 50%
+        );
+
+}
+
+.recruit-inner {
+
+    width: min(1000px, 90%);
+
+    margin: auto;
+
+    text-align: center;
+
+}
+
+.recruit h2 {
+
+    font-size:
+        clamp(45px, 7vw, 90px);
+
+    font-weight: 900;
+
+}
+
+.recruit h2 span {
+
+    color: #ff5a00;
+
+}
+
+.recruit p {
+
+    margin:
+        30px auto;
+
+    color: #999;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    padding:
+        80px 5% 40px;
+
+    border-top:
+        1px solid rgba(255,255,255,.1);
+
+}
+
+.footer-inner {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        flex-end;
+
+}
+
+.footer-logo {
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+}
+
+.footer-logo span {
+
+    color: #ff5a00;
+
+}
+
+.social {
+
+    display: flex;
+
+    gap: 25px;
+
+}
+
+.social a {
+
+    color: #888;
+
+    transition: .3s;
+
+}
+
+.social a:hover {
+
+    color: #ff5a00;
+
+}
+
+.copyright {
+
+    margin-top: 60px;
+
+    color: #555;
+
+    font-size: 11px;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width: 900px) {
+
+
+    nav {
+
+        display: none;
+
+    }
+
+
+    .hero-orb {
+
+        width: 300px;
+
+        height: 300px;
+
+        right: -100px;
+
+    }
+
+
+    .game-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .game-card {
+
+        height: 500px;
+
+    }
+
+
+    .about-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .news-item {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 8px;
+
+    }
+
+
+    .footer-inner {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+
+        gap: 30px;
+
+    }
+
+}
+
+
+/* =====================================================
+   CUSTOM CURSOR
+===================================================== */
+
+.cursor {
+
+    position: fixed;
+
+    width: 12px;
+
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #ff5a00;
+
+    pointer-events: none;
+
+    z-index: 99999;
+
+    mix-blend-mode: difference;
+
+    transform:
+        translate(-50%, -50%);
+
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div id="loading">
+
+    <div class="loading-logo">
+        NEXUS
+    </div>
+
+</div>
+
+
+
+<!-- CUSTOM CURSOR -->
+
+<div class="cursor"></div>
+
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <div class="header-inner">
+
+        <a
+            href="#"
+            class="logo"
+        >
+            NEXUS<span>.</span>
+        </a>
+
+
+        <nav>
+
+            <a href="#games">
+                GAME
+            </a>
+
+            <a href="#about">
+                ABOUT
+            </a>
+
+            <a href="#news">
+                NEWS
+            </a>
+
+            <a href="#recruit">
+                RECRUIT
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-grid"></div>
+
+    <div class="hero-orb"></div>
+
+
+    <div class="hero-content reveal">
+
+        <div class="hero-label">
+
+            GAME CREATION COMPANY
+
+        </div>
+
+
+        <h1>
+
+            ゲームで、<br>
+
+            <span>
+                未来を創る。
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            私たちは、まだ誰も見たことのない
+            「面白い」を創り出すゲーム会社です。<br>
+
+            テクノロジーとクリエイティブを融合し、
+            世界中のプレイヤーを熱狂させる
+            新しい体験を生み出します。
+
+        </p>
+
+
+        <a
+            href="#games"
+            class="hero-button"
+        >
+            OUR GAMES →
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     GAMES
+===================================================== -->
+
+<section
+    class="games"
+    id="games"
+>
+
+    <div class="container reveal">
+
+        <div class="section-number">
+            01 / GAME
+        </div>
+
+
+        <h2 class="section-title">
+
+            私たちが<br>
+
+            <span>
+                創るゲーム。
+            </span>
+
+        </h2>
+
+
+        <p class="games-intro">
+
+            プレイヤーの心を動かすこと。<br>
+            何度でも遊びたくなること。<br>
+            そして、誰かに話したくなること。<br>
+
+            私たちは「面白い」のその先を目指します。
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         GAME CARDS
+    ================================================= -->
+
+    <div class="game-grid">
+
+
+        <!-- =========================
+             GAME 01
+        ========================= -->
+
+        <div class="game-card reveal">
+
+
+            <img
+                src="C:\Users\h.kobori\Downloads\ChatGPT Image 2026年9月9日 14_38_21.png"
+                alt="NEXUS ZERO"
+                class="game-image"
+            >
+
+
+            <div class="game-overlay"></div>
+
+
+            <div class="game-info">
+
+                <div class="game-category">
+                    ACTION RPG
+                </div>
+
+
+                <h3>
+                    NEXUS ZERO
+                </h3>
+
+
+                <p>
+
+                    近未来の日本を舞台にした
+                    次世代アクションRPG。<br>
+
+                    選択によって変化する
+                    完全没入型のストーリー。
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             GAME 02
+        ========================= -->
+
+        <div class="game-card reveal">
+
+
+            <img
+                src="C:\Users\h.kobori\Downloads\ChatGPT Image 2026年9月9日 14_39_56.png"
+                alt="VOID"
+                class="game-image"
+            >
+
+
+            <div class="game-overlay"></div>
+
+
+            <div class="game-info">
+
+                <div class="game-category">
+                    OPEN WORLD
+                </div>
+
+
+                <h3>
+                    VOID
+                </h3>
+
+
+                <p>
+
+                    果てのない宇宙を旅する
+                    オープンワールドアドベンチャー。<br>
+
+                    自分だけの物語を
+                    自由に描いていく。
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             GAME 03
+        ========================= -->
+
+        <div class="game-card reveal">
+
+
+            <img
+                src="C:\Users\h.kobori\Downloads\ChatGPT Image 2026年9月9日 14_41_26.png"
+                alt="ECLIPSE"
+                class="game-image"
+            >
+
+
+            <div class="game-overlay"></div>
+
+
+            <div class="game-info">
+
+                <div class="game-category">
+                    ONLINE GAME
+                </div>
+
+
+                <h3>
+                    ECLIPSE
+                </h3>
+
+
+                <p>
+
+                    世界中のプレイヤーと
+                    共に戦うオンラインゲーム。<br>
+
+                    仲間とともに
+                    未知の世界へ挑戦しよう。
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section
+    class="about"
+    id="about"
+>
+
+    <div class="container reveal">
+
+
+        <div class="section-number">
+            02 / ABOUT
+        </div>
+
+
+        <h2 class="section-title">
+
+            面白いを、<br>
+
+            <span>
+                本気で。
+            </span>
+
+        </h2>
+
+
+        <div class="about-grid">
+
+
+            <div class="about-text">
+
+                私たちはゲームを
+                「ただ遊ぶもの」だとは考えていません。
+
+                <br><br>
+
+                驚き、感動、興奮、悔しさ、
+                仲間とのつながり。
+
+                <br><br>
+
+                そのすべてを体験できる場所が
+                ゲームだと考えています。
+
+                <br><br>
+
+                だからこそ、
+                私たちは妥協しません。
+
+            </div>
+
+
+
+            <div class="values">
+
+
+                <div class="value">
+
+                    <div class="value-number">
+                        01
+                    </div>
+
+                    <h3>
+                        挑戦する
+                    </h3>
+
+                    <p>
+                        常識にとらわれず、
+                        新しいゲーム体験を追求する。
+                    </p>
+
+                </div>
+
+
+
+                <div class="value">
+
+                    <div class="value-number">
+                        02
+                    </div>
+
+                    <h3>
+                        楽しむ
+                    </h3>
+
+                    <p>
+                        作る側が楽しめなければ、
+                        本当に面白いゲームは作れない。
+                    </p>
+
+                </div>
+
+
+
+                <div class="value">
+
+                    <div class="value-number">
+                        03
+                    </div>
+
+                    <h3>
+                        超える
+                    </h3>
+
+                    <p>
+                        昨日より面白いものを。
+                        期待を超える体験を。
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     NEWS
+===================================================== -->
+
+<section
+    class="news"
+    id="news"
+>
+
+    <div class="container reveal">
+
+
+        <div class="section-number">
+            03 / NEWS
+        </div>
+
+
+        <h2 class="section-title">
+
+            最新情報
+
+        </h2>
+
+
+        <div
+            class="news-list"
+            id="newsList"
+        ></div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RECRUIT
+===================================================== -->
+
+<section
+    class="recruit"
+    id="recruit"
+>
+
+    <div class="recruit-inner reveal">
+
+
+        <div class="section-number">
+            JOIN US
+        </div>
+
+
+        <h2>
+
+            一緒に、<br>
+
+            <span>
+                世界を変えよう。
+            </span>
+
+        </h2>
+
+
+        <p>
+
+            ゲームが好き。<br>
+            新しいものを創りたい。<br>
+            世界を驚かせたい。
+
+            <br><br>
+
+            そんな仲間を
+            私たちは探しています。
+
+        </p>
+
+
+        <a
+            href="#"
+            class="hero-button"
+        >
+            RECRUIT → 
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-inner">
+
+
+        <div class="footer-logo">
+
+            NEXUS<span>.</span>
+
+        </div>
+
+
+        <div class="social">
+
+            <a href="#">
+                X
+            </a>
+
+            <a href="#">
+                YouTube
+            </a>
+
+            <a href="#">
+                Instagram
+            </a>
+
+            <a href="#">
+                CONTACT
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 NEXUS GAMES. ALL RIGHTS RESERVED.
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        const loading =
+            document.getElementById("loading");
+
+        setTimeout(
+            () => {
+
+                loading.style.opacity = "0";
+
+                setTimeout(
+                    () => {
+
+                        loading.style.display =
+                            "none";
+
+                    },
+                    1000
+                );
+
+            },
+            800
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target
+                            .classList
+                            .add("active");
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold: .15
+        }
+    );
+
+
+document
+    .querySelectorAll(".reveal")
+    .forEach(
+        element => {
+
+            observer.observe(element);
+
+        }
+    );
+
+
+
+/* =====================================================
+   NEWS DATA
+===================================================== */
+
+const newsData = [
+
+    {
+        date: "2026.09.09",
+        category: "INFO",
+        title: "NEXUS GAMES公式サイトを公開しました。"
+    },
+
+    {
+        date: "2026.09.01",
+        category: "GAME",
+        title: "新作タイトル「ECLIPSE」の開発情報を公開。"
+    },
+
+    {
+        date: "2026.08.20",
+        category: "EVENT",
+        title: "ゲームクリエイター向けイベントに参加します。"
+    },
+
+    {
+        date: "2026.08.01",
+        category: "RECRUIT",
+        title: "2027年度新卒採用エントリー受付開始。"
+    }
+
+];
+
+
+const newsList =
+    document.getElementById(
+        "newsList"
+    );
+
+
+newsData.forEach(
+    news => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "news-item";
+
+
+        item.innerHTML = `
+
+            <div class="news-date">
+                ${news.date}
+            </div>
+
+            <div class="news-category">
+                ${news.category}
+            </div>
+
+            <div class="news-title">
+                ${news.title}
+            </div>
+
+        `;
+
+
+        newsList.appendChild(item);
+
+    }
+);
+
+
+
+/* =====================================================
+   GAME CARD 3D EFFECT
+===================================================== */
+
+const cards =
+    document.querySelectorAll(
+        ".game-card"
+    );
+
+
+cards.forEach(
+    card => {
+
+        card.addEventListener(
+            "mousemove",
+            e => {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+
+                const x =
+                    e.clientX -
+                    rect.left;
+
+
+                const y =
+                    e.clientY -
+                    rect.top;
+
+
+                const centerX =
+                    rect.width / 2;
+
+
+                const centerY =
+                    rect.height / 2;
+
+
+                const rotateX =
+                    (y - centerY) / 20;
+
+
+                const rotateY =
+                    (centerX - x) / 20;
+
+
+                card.style.transform = `
+
+                    perspective(1000px)
+
+                    rotateX(${rotateX}deg)
+
+                    rotateY(${rotateY}deg)
+
+                    scale(1.02)
+
+                `;
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            () => {
+
+                card.style.transform =
+                    "perspective(1000px) rotateX(0) rotateY(0) scale(1)";
+
+            }
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   HERO PARALLAX
+===================================================== */
+
+document.addEventListener(
+    "mousemove",
+    e => {
+
+        const orb =
+            document.querySelector(
+                ".hero-orb"
+            );
+
+
+        const x =
+            (e.clientX /
+            window.innerWidth -
+            .5) * 30;
+
+
+        const y =
+            (e.clientY /
+            window.innerHeight -
+            .5) * 30;
+
+
+        orb.style.transform =
+            `translate(${x}px, ${y}px)`;
+
+    }
+);
+
+
+
+/* =====================================================
+   CUSTOM CURSOR
+===================================================== */
+
+const cursor =
+    document.querySelector(
+        ".cursor"
+    );
+
+
+document.addEventListener(
+    "mousemove",
+    e => {
+
+        cursor.style.left =
+            e.clientX + "px";
+
+        cursor.style.top =
+            e.clientY + "px";
+
+    }
+);
+
+
+
+/* =====================================================
+   CURSOR HOVER EFFECT
+===================================================== */
+
+document
+    .querySelectorAll("a, .game-card")
+    .forEach(
+        element => {
+
+            element.addEventListener(
+                "mouseenter",
+                () => {
+
+                    cursor.style.transform =
+                        "translate(-50%, -50%) scale(3)";
+
+                    cursor.style.opacity =
+                        ".5";
+
+                }
+            );
+
+
+            element.addEventListener(
+                "mouseleave",
+                () => {
+
+                    cursor.style.transform =
+                        "translate(-50%, -50%) scale(1)";
+
+                    cursor.style.opacity =
+                        "1";
+
+                }
+            );
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
